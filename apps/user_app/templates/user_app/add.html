@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create new wishes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col">
+                <a href="{% url 'userspace:home' %}">Home |</a>
+                <a href="{% url 'loginspace:logout' %}">Logout</a>
+            </div>
+        </div>
+        
+        <div class="add-review">
+            <h3>Hello {{request.session.first_name}}! Create a job! <span class="glyphicon glyphicon-book"></span></h3>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-warning" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <form class="form-horizontal" action="{% url 'userspace:add' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label">Title:</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="title" class="form-control" placeholder="job">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label">Description</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" name="desc" rows="3" placeholder="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label">Location:</label>
+                    <div class="col-sm-6">
+                        <input type="text" name="location" class="form-control" placeholder="location">
+                    </div>
+                </div>
+
+                <!-- selection -->
+                <form class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Category:</legend>
+                        <div class="col-sm-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cate1" value="Consultant">
+                            <label class="form-check-label">
+                            Consultant
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cate2" id="gridRadios3" value="Accounting">
+                            <label class="form-check-label">
+                            Third disabled radio
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="cate3" id="gridRadios3" value="Sales">
+                            <label class="form-check-label">
+                            Third disabled radio
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Others:</label>
+                            <div class="col-sm-3">
+                                <input type="text" name="cate4" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+    <!-- end of selection -->
+                <br>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-6">
+                        <button type="submit" class="btn btn-info">Submit</button>
+                        <button class="btn btn-light"><a href="{% url 'userspace:home' %}">Cancel</a> </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
